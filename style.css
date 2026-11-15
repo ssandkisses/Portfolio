@@ -1116,3 +1116,247 @@ hr {
     background: rgba(255, 255, 255, 0.18);
     transform: translateY(-2px);
 }
+
+/* ===================== RESPONSIVE (HP & TABLET) ===================== */
+html,
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Laptop kecil / tablet landscape */
+@media (max-width: 1100px) {
+  .home,
+  .project,
+  .about,
+  .services {
+    margin: 120px 60px;
+  }
+
+  .home-container {
+    gap: 3rem;
+  }
+
+  .home img {
+    width: 280px;
+  }
+
+  .info-home h1 {
+    font-size: 52px;
+  }
+
+  .info-home h3 {
+    font-size: 30px;
+  }
+}
+
+/* Tablet portrait */
+@media (max-width: 800px) {
+  .home-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .home img {
+    width: 100%;
+    max-width: 240px;
+    align-self: center;
+  }
+
+  .about-info2 {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .photo-container {
+    align-self: center;
+  }
+
+  .photo-container img {
+    width: 200px;
+  }
+}
+
+/* HP: minimalis, foto kecil, teks rata tengah */
+@media (max-width: 600px) {
+  .home,
+  .project,
+  .about,
+  .services {
+    margin: 70px 20px 50px;
+  }
+
+  /* ---------- Navbar (ikon saja) ---------- */
+  .div-list {
+    padding: 12px 0;
+  }
+
+  .ul-list {
+    gap: 0.1rem;
+    padding: 6px 8px;
+  }
+
+  .ul-list li {
+    position: relative;
+    padding: 9px 12px;
+  }
+
+  .ul-list li i {
+    font-size: 16px;
+  }
+
+  .ul-list li a {
+    font-size: 0;
+  }
+
+  .ul-list li a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ---------- Home ---------- */
+  .home {
+    margin-top: 90px;
+    text-align: center;
+  }
+
+  .home-container {
+    flex-direction: column-reverse; /* foto di atas, teks di bawah */
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .home img {
+    width: 130px;
+    height: 130px;
+    max-width: none;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 18px rgba(255, 79, 190, 0.35);
+  }
+
+  .home-p {
+    font-size: 12px;
+    padding: 5px 12px;
+    margin-bottom: 14px;
+  }
+
+  .info-home h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .info-home h3 {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+
+  .info-p {
+    font-size: 14px;
+    line-height: 1.6;
+    padding-bottom: 14px;
+  }
+
+  .info-p2 {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    font-size: 13px;
+    padding-bottom: 16px;
+  }
+
+  .btnn {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-bottom: 20px;
+  }
+
+  .btn-home1,
+  .btn-home2 {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .hhr {
+    padding-bottom: 16px;
+  }
+
+  .follow,
+  .follow ul {
+    justify-content: center;
+  }
+
+  /* ---------- About ---------- */
+  .about-info {
+    margin-bottom: 2rem;
+  }
+
+  .about h3 {
+    font-size: 22px;
+  }
+
+  .about-text p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* foto besar di About disembunyikan (sudah ada foto kecil di atas) */
+  .photo-container {
+    display: none;
+  }
+
+  .tech-label {
+    font-size: 14px;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+
+  /* ---------- Projects ---------- */
+  .project h1,
+  .services h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .info-pro p {
+    font-size: 13px;
+  }
+
+  .projects-container,
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .project-card {
+    padding: 16px;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+  }
+
+  /* ---------- Services ---------- */
+  .service-card {
+    padding: 1.25rem;
+  }
+
+  /* ---------- Contact ---------- */
+  #contact {
+    padding: 60px 20px;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+}
