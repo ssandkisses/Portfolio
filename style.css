@@ -1118,9 +1118,10 @@ hr {
 }
 
 /* ===================== RESPONSIVE (HP & TABLET) ===================== */
+/* 'clip' mencegah geser ke samping TANPA merusak position: fixed di HP */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
@@ -1189,7 +1190,19 @@ img {
     margin: 70px 20px 50px;
   }
 
-  /* ---------- Navbar (ikon saja) ---------- */
+  /* ---------- Navbar (ikon saja, tetap menempel di atas saat scroll) ---------- */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+  }
+
+  .ul-list {
+    -webkit-backdrop-filter: blur(12px);
+  }
+
   .div-list {
     padding: 12px 0;
   }
@@ -1358,5 +1371,328 @@ img {
 
   .contact-form {
     padding: 20px;
+  }
+}
+
+/* ===== FIX NAVBAR HILANG DI HP (tablet & HP) ===== */
+@media (max-width: 800px) {
+  /* header dapat layer GPU sendiri supaya tidak ikut hilang saat scroll jauh */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* efek berat (blur besar + animasi tanpa henti) dimatikan di HP.
+     Ini juga sumber layar jadi lebih lebar dari HP sehingga menu bisa "lepas" */
+  .services::before {
+    display: none;
+  }
+
+  .service-card,
+  .project-card,
+  .contact-form,
+  .photo-container {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ===================== INTRO / LOADING SCREEN (HP) ===================== */
+@keyframes introPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .35; transform: scale(.7); }
+}
+
+@keyframes introBar {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (max-width: 700px) {
+  #intro {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 16px 0;
+  }
+
+  .main {
+    width: 90%;
+  }
+
+  .card {
+    position: relative;
+    overflow: hidden;
+    padding: 26px 20px 30px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 79, 163, 0.22);
+    text-align: center;
+  }
+
+  /* progress bar tipis di bawah kartu, jalan selama intro tampil */
+  .card::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, #ff4fa3, #ffb3e0);
+    box-shadow: 0 0 12px rgba(255, 79, 163, 0.8);
+    animation: introBar 3.8s linear forwards;
+  }
+
+  /* ---------- Tag di atas ---------- */
+  .top-tags {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .top-tags span {
+    white-space: nowrap;
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+
+  .top-tags span:nth-child(3) {
+    display: none;
+  }
+
+  /* ---------- Susunan: orbit di atas, teks di bawah ---------- */
+  .content {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .right {
+    flex: none;
+    width: 100%;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .right-head,
+  .stats {
+    display: none;
+  }
+
+  .orbit-box {
+    width: 150px;
+    height: 150px;
+  }
+
+  .orbit i {
+    padding: 6px;
+    font-size: 11px;
+  }
+
+  .core {
+    inset: 36px;
+  }
+
+  .core span {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  /* ---------- Teks ---------- */
+  .left h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 20%, #ffb3e0 60%, #ff4fa3);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .left h1 br {
+    display: none;
+  }
+
+  .desc {
+    margin: 14px auto 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 320px;
+  }
+
+  .live-line {
+    margin-bottom: 16px;
+  }
+
+  .live-line span {
+    font-size: 11px;
+  }
+
+  .live-line span::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: #7cffb2;
+    box-shadow: 0 0 8px #7cffb2;
+    animation: introPulse 1.4s ease-in-out infinite;
+  }
+
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .btn {
+    font-size: 11px;
+    padding: 7px 13px;
+  }
+}
+
+/* ===================== INTRO / SPLASH (HP & TABLET) ===================== */
+@keyframes corePulse {
+  0%, 100% { box-shadow: 0 0 28px rgba(255, 45, 170, 0.45); }
+  50%      { box-shadow: 0 0 52px rgba(255, 45, 170, 0.85); }
+}
+
+@media (max-width: 800px) {
+  #intro {
+    height: 100vh;
+    height: 100svh;
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .card {
+    padding: 28px 22px;
+    border-radius: 24px;
+    text-align: center;
+  }
+
+  .top-tags {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  /* visual orbit di atas, teks di bawah */
+  .content {
+    flex-direction: column-reverse;
+    gap: 22px;
+  }
+
+  .right {
+    flex: none;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .desc {
+    margin: 14px auto 20px;
+    max-width: 420px;
+  }
+
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 20px 16px;
+    border-radius: 22px;
+    box-shadow: 0 0 50px rgba(255, 45, 170, 0.3);
+  }
+
+  .top-tags {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .top-tags span {
+    font-size: 9px;
+    padding: 4px 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .content {
+    gap: 16px;
+  }
+
+  /* panel orbit dibuat ringkas */
+  .right {
+    padding: 14px 16px 18px;
+    border-radius: 18px;
+  }
+
+  .right-head {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+
+  .orbit-box {
+    width: 130px;
+    height: 130px;
+  }
+
+  .orbit i {
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .i1 { top: -6px; }
+  .i2 { right: -6px; }
+  .i3 { bottom: -6px; }
+  .i4 { left: -6px; }
+
+  .core {
+    inset: 28px;
+    animation: corePulse 2.4s ease-in-out infinite;
+  }
+
+  .core span {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  /* detail dekoratif disembunyikan supaya muat satu layar */
+  .stats,
+  .live-line {
+    display: none;
+  }
+
+  .left h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .desc {
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 12px auto 16px;
+  }
+
+  .btn {
+    font-size: 11px;
+    padding: 7px 12px;
+    gap: 6px;
   }
 }
